@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yoomee · Menú Semanal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --teal: #2BBCB0;
+            --teal-dark: #1e9088;
+            --teal-glow: rgba(43, 188, 176, 0.25);
+            --amber: #F5A623;
+            --amber-glow: rgba(245, 166, 35, 0.25);
+            --green: #4caf6e;
+            --green-glow: rgba(76, 175, 110, 0.25);
+            --bg: #f7f9f8;
+            --card: #ffffff;
+            --text: #161616;
+            --muted: #7c7c7c;
+            --border: rgba(0, 0, 0, 0.07);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* AMBIENT */
+        .ambient {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .ambient-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.45;
+            animation: blobDrift 18s ease-in-out infinite alternate;
+        }
+
+        .blob1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #c8f0ed, transparent);
+            top: -150px;
+            left: -150px;
+            animation-delay: 0s;
+        }
+
+        .blob2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, #fce8c4, transparent);
+            bottom: -100px;
+            right: -100px;
+            animation-delay: -6s;
+        }
+
+        .blob3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #d4f0da, transparent);
+            top: 40%;
+            left: 40%;
+            animation-delay: -12s;
+        }
+
+        @keyframes blobDrift {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(40px, -30px) scale(1.08);
+            }
+
+            100% {
+                transform: translate(-20px, 50px) scale(0.95);
+            }
+        }
+
+        /* HEADER — zero transitions */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            padding: 0.9rem 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(247, 249, 248, 0.82);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(43, 188, 176, 0.12);
+        }
+
+        .logo {
+            overflow: hidden;
+        }
+
+        .logo img {
+            height: 100px;
+            width: auto;
+            display: block;
+            margin-top: -28px;
+            margin-bottom: -28px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .header-date {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .header-tag {
+            background: var(--teal);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.8rem;
+            border-radius: 100px;
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            z-index: 1;
+            padding: 7rem 2rem 2rem;
+            text-align: center;
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .hero-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            border: 1px solid rgba(43, 188, 176, 0.25);
+            color: var(--teal-dark);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+            border-radius: 100px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px var(--teal-glow);
+            opacity: 0;
+            animation: fadeUp 0.7s ease forwards 0.15s;
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-size: clamp(3.2rem, 7vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.0;
+            letter-spacing: -0.02em;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.3s;
+        }
+
+        .word-italic {
+            font-style: italic;
+            color: var(--teal);
+            display: inline-block;
+            animation: fadeUp 0.8s ease forwards 0.3s, wiggle 4s ease-in-out 1.5s infinite;
+        }
+
+        .word-amber {
+            color: var(--amber);
+            display: inline-block;
+        }
+
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(-1deg);
+            }
+
+            50% {
+                transform: rotate(1.5deg);
+            }
+        }
+
+        .hero-sub {
+            font-size: 1.05rem;
+            color: var(--muted);
+            line-height: 1.8;
+            max-width: 520px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.45s;
+        }
+
+        /* STATS */
+        .stats-strip {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            padding: 2.5rem 2rem;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeUp 0.7s ease forwards 0.6s;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-family: 'Fraunces', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--teal);
+            line-height: 1;
+            margin-bottom: 0.2rem;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+
+        .stat-divider {
+            width: 1px;
+            background: var(--border);
+            height: 40px;
+            align-self: center;
+        }
+
+        /* MARQUEE */
+        .marquee-wrap {
+            overflow: hidden;
+            background: var(--teal);
+            padding: 0.85rem 0;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 0;
+        }
+
+        .marquee-track {
+            display: flex;
+            gap: 2.5rem;
+            white-space: nowrap;
+            animation: marquee 22s linear infinite;
+            width: max-content;
+        }
+
+        .marquee-item {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: white;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .marquee-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            display: inline-block;
+        }
+
+        @keyframes marquee {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* TABS */
+        .tabs-outer {
+            display: flex;
+            justify-content: center;
+            padding: 2.5rem 1rem 3rem;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeUp 0.7s ease forwards 0.7s;
+        }
+
+        .tabs-inner {
+            display: inline-flex;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 6px;
+            gap: 0;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+            position: relative;
+        }
+
+        .tab-pill {
+            position: absolute;
+            top: 6px;
+            height: calc(100% - 12px);
+            border-radius: 100px;
+            z-index: 0;
+            transition: left 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), width 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .tab-btn {
+            position: relative;
+            z-index: 1;
+            border: none;
+            background: transparent;
+            padding: 0.7rem 1.8rem;
+            border-radius: 100px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            white-space: nowrap;
+            transition: color 0.3s ease;
+            user-select: none;
+        }
+
+        .tab-btn.active {
+            color: white;
+        }
+
+        .tab-icon {
+            font-size: 1.05rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .tab-btn:not(.active):hover .tab-icon {
+            transform: scale(1.3) rotate(-8deg);
+        }
+
+        /* SECTION LABEL */
+        .section-label {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-label.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-label h2 {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .section-label p {
+            font-size: 0.88rem;
+            color: var(--muted);
+            margin-top: 0.3rem;
+        }
+
+        /* GRID */
+        .grid-wrap {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 0 2rem 8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dishes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .dishes-grid.exit {
+            opacity: 0;
+            transform: translateY(14px);
+        }
+
+        /* ── TABLET ── */
+        @media(max-width:960px) {
+            .dishes-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid-wrap {
+                padding: 0 1.5rem 6rem;
+            }
+
+            .hero {
+                padding: 5rem 1.5rem 1.5rem;
+            }
+
+            .stats-strip {
+                gap: 2rem;
+            }
+        }
+
+        /* ── MOBILE ── */
+        @media(max-width:600px) {
+
+            /* header */
+            header {
+                padding: 0.8rem 1.2rem;
+            }
+
+            .header-date {
+                display: none;
+            }
+
+            .logo img {
+                height: 80px;
+                margin-top: -22px;
+                margin-bottom: -22px;
+            }
+
+            .footer-logo img {
+                width: 280px;
+                margin-top: -30px;
+                margin-bottom: -15px;
+            }
+
+            /* hero */
+            .hero {
+                padding: 4rem 1.2rem 1.2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-sub {
+                font-size: 0.95rem;
+            }
+
+            /* stats */
+            .stats-strip {
+                gap: 0;
+                padding: 1.8rem 1rem;
+                display: grid;
+                grid-template-columns: 1fr 1px 1fr;
+                grid-template-rows: auto auto;
+                row-gap: 1.2rem;
+            }
+
+            .stat:nth-child(4) {
+                grid-column: 1;
+            }
+
+            .stat:nth-child(6) {
+                grid-column: 3;
+            }
+
+            .stat-divider:nth-child(5) {
+                display: none;
+            }
+
+            .stat-num {
+                font-size: 1.8rem;
+            }
+
+            /* tabs — wrap and shrink on very small screens */
+            .tabs-outer {
+                padding: 1.5rem 1rem 2rem;
+            }
+
+            .tab-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            /* grid */
+            .dishes-grid {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+            }
+
+            .grid-wrap {
+                padding: 0 1rem 5rem;
+            }
+
+            /* section label */
+            .section-label h2 {
+                font-size: 1.2rem;
+            }
+
+            /* footer */
+            .footer-logo img {
+                height: 44px;
+            }
+        }
+
+        /* ── VERY SMALL ── */
+        @media(max-width:380px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .tab-btn {
+                padding: 0.55rem 0.7rem;
+                font-size: 0.75rem;
+                gap: 0.25rem;
+            }
+
+            .stats-strip {
+                gap: 0;
+                padding: 1.5rem 0.8rem;
+            }
+
+            .stat-num {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* CARD */
+        .dish-card {
+            background: var(--card);
+            border-radius: 28px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transform: translateY(32px) scale(0.97);
+            transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+            cursor: pointer;
+        }
+
+        .dish-card.in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .dish-card:hover {
+            transform: translateY(-10px) scale(1.02) !important;
+            box-shadow: 0 28px 56px rgba(43, 188, 176, 0.2), 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        .card-img-wrap {
+            position: relative;
+            width: 100%;
+            padding-bottom: 70%;
+            overflow: hidden;
+            background: #eef0ee;
+        }
+
+        .card-img-wrap img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease, transform 0.6s ease;
+        }
+
+        .card-img-wrap img.loaded {
+            opacity: 1;
+        }
+
+        .dish-card:hover .card-img-wrap img {
+            transform: scale(1.08);
+        }
+
+        .card-shimmer {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, #ebebeb 30%, #f5f5f5 50%, #ebebeb 70%);
+            background-size: 250% 100%;
+            animation: shimmer 1.5s infinite;
+            transition: opacity 0.4s ease;
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: 250% 0;
+            }
+
+            100% {
+                background-position: -250% 0;
+            }
+        }
+
+        .card-img-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.78) 0%, rgba(10, 10, 10, 0.28) 38%, transparent 62%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .card-day {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.93);
+            backdrop-filter: blur(10px);
+            border-radius: 100px;
+            padding: 0.28rem 0.75rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-title {
+            position: absolute;
+            bottom: 1.1rem;
+            left: 1.1rem;
+            right: 1.1rem;
+            z-index: 2;
+            font-family: 'Fraunces', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: white;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-body {
+            padding: 1.1rem 1.4rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .card-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            padding: 0.22rem 0.65rem;
+            border-radius: 100px;
+            align-self: flex-start;
+        }
+
+        .badge-s {
+            background: #e0f7f5;
+            color: #1a8f86;
+        }
+
+        .badge-k {
+            background: #fff2d9;
+            color: #b07510;
+        }
+
+        .badge-v {
+            background: #e4f5e8;
+            color: #2d7a3e;
+        }
+
+        .card-desc {
+            font-size: 0.86rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        /* HOVER DETAIL PANEL */
+        .card-detail {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease, padding 0.35s ease;
+            opacity: 0;
+            padding: 0 1.4rem;
+            border-top: 0px solid var(--border);
+        }
+
+        .dish-card:hover .card-detail {
+            max-height: 200px;
+            opacity: 1;
+            padding: 0.8rem 1.4rem 1.2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .card-detail-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.78rem;
+            color: var(--muted);
+            padding: 0.28rem 0;
+        }
+
+        .card-detail-row span.icon {
+            font-size: 0.9rem;
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .card-detail-row strong {
+            color: var(--text);
+            font-weight: 600;
+            margin-right: 0.2rem;
+        }
+
+        .card-detail-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 0.6rem;
+            background: var(--teal);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.45rem 1rem;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .card-detail-cta:hover {
+            background: var(--teal-dark);
+            transform: scale(1.05);
+        }
+
+        /* FOOTER */
+        footer {
+            background: #0f0f0f;
+            padding: 3.5rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo {
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-logo img {
+            width: 500px;
+            max-width: 85vw;
+            height: auto;
+            display: block;
+            margin-top: -90px;
+            margin-bottom: -90px;
+            opacity: 0.85;
+        }
+
+        footer p {
+            font-size: 0.78rem;
+            color: #555;
+            letter-spacing: 0.05em;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ambient">
+        <div class="ambient-blob blob1"></div>
+        <div class="ambient-blob blob2"></div>
+        <div class="ambient-blob blob3"></div>
+    </div>
+
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Yoomee"
+                onerror="this.outerHTML='<span style=\'font-family:Fraunces,serif;font-size:1.6rem;font-weight:900;background:linear-gradient(135deg,#2BBCB0,#F5A623);-webkit-background-clip:text;-webkit-text-fill-color:transparent;\'>Yoomee</span>'">
+        </div>
+        <div class="header-right">
+            <span class="header-date" id="hdate"></span>
+            <span class="header-tag">Menú Semanal</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-chip">🌿 Semana de nutrición</div>
+            <h1>Come <span class="word-italic">rico</span>,<br>vive <span class="word-amber">bien.</span></h1>
+            <p class="hero-sub">Cada semana, tres menús diseñados para nutrir tu cuerpo sin sacrificar el sabor.</p>
+        </section>
+
+        <div class="stats-strip">
+            <div class="stat">
+                <div class="stat-num">3</div>
+                <div class="stat-label">Menús</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <div class="stat-num">9</div>
+                <div class="stat-label">Platillos</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <div class="stat-num">5</div>
+                <div class="stat-label">Días</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <div class="stat-num">100%</div>
+                <div class="stat-label">Fresco</div>
+            </div>
+        </div>
+
+        <div class="marquee-wrap">
+            <div class="marquee-track" id="mtrack"></div>
+        </div>
+
+        <div class="tabs-outer">
+            <div class="tabs-inner" id="tabs-inner">
+                <div class="tab-pill" id="tab-pill"></div>
+                <button class="tab-btn active" data-menu="saludable" data-color="#2BBCB0"
+                    data-glow="rgba(43,188,176,0.4)">
+                    <span class="tab-icon">🥗</span> Saludable
+                </button>
+                <button class="tab-btn" data-menu="keto" data-color="#F5A623" data-glow="rgba(245,166,35,0.4)">
+                    <span class="tab-icon">🥑</span> Keto
+                </button>
+                <button class="tab-btn" data-menu="vegetariano" data-color="#4caf6e" data-glow="rgba(76,175,110,0.4)">
+                    <span class="tab-icon">🌿</span> Vegetariano
+                </button>
+            </div>
+        </div>
+
+        <div class="grid-wrap">
+            <div class="section-label" id="sec-label">
+                <h2 id="sec-title">Menú Saludable · Esta semana</h2>
+                <p>Lunes a Miércoles · Todos los desayunos incluyen fruta</p>
+            </div>
+            <div class="dishes-grid" id="dishes-grid"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="logo.png" alt="Yoomee"
+                onerror="this.outerHTML='<span style=\'font-family:Fraunces,serif;font-size:1.2rem;font-weight:900;color:#555;\'>Yoomee</span>'">
+        </div>
+        <p>© Yoomee · Comida que nutre · Todos los derechos reservados</p>
+    </footer>
+
+    <script>
+        const menus = {
+            saludable: {
+                label: 'Menú Saludable · Esta semana',
+                badgeClass: 'badge-s', badgeText: '🥗 Saludable',
+                dishes: [
+                    { title: 'Albóndigas de res con vegetales', desc: 'Acompañadas de arroz poblano y vegetales frescos de temporada.', day: 'Lunes', img: 'saludable_1_albondigas_1773592745079.png', cals: '420 kcal', tiempo: '35 min', proteina: '28g proteína' },
+                    { title: 'Tiras de pollo con nopales', desc: 'En salsa de espinacas cremosa con un toque de jalapeño.', day: 'Martes', img: 'saludable_2_pollo_nopales_1773592760915.png', cals: '380 kcal', tiempo: '30 min', proteina: '32g proteína' },
+                    { title: 'Pechuga de pollo en estofado', desc: 'Con ejotes, zanahorias y especias naturales.', day: 'Miércoles', img: 'saludable_3_estofado_pollo_1773592776868.png', cals: '360 kcal', tiempo: '40 min', proteina: '35g proteína' }
+                ]
+            },
+            keto: {
+                label: 'Menú Keto · Esta semana',
+                badgeClass: 'badge-k', badgeText: '🥑 Keto',
+                dishes: [
+                    { title: 'Huevos revueltos en salsa roja', desc: 'Con vegetales frescos y rebanadas de aguacate cremoso.', day: 'Lunes', img: 'keto_1_huevos_salsa_1773592790518.png', cals: '390 kcal', tiempo: '20 min', proteina: '22g proteína' },
+                    { title: 'Tilapia en adobo con vegetales', desc: 'Acompañada de coliflor rostizada con mantequilla.', day: 'Martes', img: 'keto_2_tilapia_adobo_coliflor_1773592808120.png', cals: '410 kcal', tiempo: '35 min', proteina: '38g proteína' },
+                    { title: 'Omelette relleno de queso', desc: 'Acompañado de ensalada fresca y frutos secos.', day: 'Miércoles', img: 'keto_3_omelette_queso_1773592822212.png', cals: '350 kcal', tiempo: '15 min', proteina: '24g proteína' }
+                ]
+            },
+            vegetariano: {
+                label: 'Menú Vegetariano · Esta semana',
+                badgeClass: 'badge-v', badgeText: '🌿 Vegetariano',
+                dishes: [
+                    { title: 'Albóndigas de garbanzos', desc: 'Con vegetales de temporada y arroz poblano.', day: 'Lunes', img: 'vegetariano_1_albondigas_garbanzo_poblano_1773592838749.png', cals: '340 kcal', tiempo: '30 min', proteina: '16g proteína' },
+                    { title: 'Soya en adobo con vegetales', desc: 'Acompañada de quinoa nutritiva y especias aromáticas.', day: 'Martes', img: 'vegetariano_2_soya_adobo_quinoa_vegetales_1773592860726.png', cals: '370 kcal', tiempo: '25 min', proteina: '22g proteína' },
+                    { title: 'Garbanzos en estofado', desc: 'Con ejotes, zanahorias y pasta enchipotlada.', day: 'Miércoles', img: 'vegetariano_3_garbanzos_estofado_pasta_enchipotlada_1773592878285.png', cals: '395 kcal', tiempo: '35 min', proteina: '18g proteína' }
+                ]
+            }
+        };
+
+        const dayEmoji = { Lunes: '☀️', Martes: '🌤️', Miércoles: '🌿' };
+
+        // Date
+        document.getElementById('hdate').textContent = new Date().toLocaleDateString('es-MX', { weekday: 'short', day: 'numeric', month: 'long' }).replace(/^\w/, c => c.toUpperCase());
+
+        // Marquee
+        (function () {
+            const items = ['Saludable', 'Keto', 'Vegetariano', '100% Fresco', 'Cada semana', 'Hecho con amor', 'Lunes a Viernes'];
+            const track = document.getElementById('mtrack');
+            let html = '';
+            for (let r = 0; r < 4; r++) items.forEach(t => { html += `<span class="marquee-item">${t}<span class="marquee-dot"></span></span>`; });
+            track.innerHTML = html;
+        })();
+
+        // Pill
+        const pill = document.getElementById('tab-pill');
+        function movePill(btn) {
+            const cr = document.getElementById('tabs-inner').getBoundingClientRect();
+            const br = btn.getBoundingClientRect();
+            pill.style.left = (br.left - cr.left - 6) + 'px';
+            pill.style.width = br.width + 'px';
+            pill.style.background = btn.dataset.color;
+            pill.style.boxShadow = `0 4px 20px ${btn.dataset.glow}`;
+        }
+
+        // Render
+        function renderMenu(key) {
+            const menu = menus[key];
+            const grid = document.getElementById('dishes-grid');
+            document.getElementById('sec-title').textContent = menu.label;
+            document.getElementById('sec-label').classList.add('visible');
+            grid.innerHTML = '';
+            menu.dishes.forEach((dish, i) => {
+                const card = document.createElement('div');
+                card.className = 'dish-card';
+                card.innerHTML = `
+      <div class="card-img-wrap">
+        <div class="card-shimmer" id="sh-${key}-${i}"></div>
+        <img src="${dish.img}" alt="${dish.title}"
+          onload="this.classList.add('loaded');var s=document.getElementById('sh-${key}-${i}');if(s){s.style.opacity='0';setTimeout(()=>s.remove(),400);}"
+          onerror="this.src='https://placehold.co/600x420/e8f5f4/2BBCB0?text=${encodeURIComponent(dish.title)}';this.classList.add('loaded');var s=document.getElementById('sh-${key}-${i}');if(s)s.remove();">
+        <div class="card-day">${dayEmoji[dish.day] || '📅'} ${dish.day}</div>
+        <div class="card-title">${dish.title}</div>
+      </div>
+      <div class="card-body">
+        <span class="card-badge ${menu.badgeClass}">${menu.badgeText}</span>
+        <p class="card-desc">${dish.desc}</p>
+      </div>
+      <div class="card-detail">
+        <div class="card-detail-row"><span class="icon">🔥</span><strong>${dish.cals}</strong></div>
+        <div class="card-detail-row"><span class="icon">⏱️</span><strong>${dish.tiempo}</strong> de preparación</div>
+        <div class="card-detail-row"><span class="icon">💪</span><strong>${dish.proteina}</strong></div>
+      </div>`;
+                grid.appendChild(card);
+                setTimeout(() => card.classList.add('in'), 60 + i * 120);
+            });
+        }
+
+        // Tabs
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.classList.contains('active')) return;
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                movePill(btn);
+                const grid = document.getElementById('dishes-grid');
+                grid.classList.add('exit');
+                setTimeout(() => { renderMenu(btn.dataset.menu); grid.classList.remove('exit'); }, 230);
+            });
+        });
+
+        // Init
+        function init() {
+            requestAnimationFrame(() => {
+                const active = document.querySelector('.tab-btn.active');
+                if (active) movePill(active);
+                renderMenu('saludable');
+                setTimeout(() => document.getElementById('sec-label').classList.add('visible'), 800);
+            });
+        }
+        document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
+    </script>
+</body>
+
+</html>
